@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Vibe Grid - FlipPlay</title>
+  <link href="./output.css" rel="stylesheet">
+</head>
+<body class="bg-cream text-flip-900">
+
+  <header class="bg-flip-900 text-white">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <a href="./index.html" class="text-xl font-bold">
+        Flip<span class="text-play-500">Play</span>
+      </a>
+      <ul class="flex gap-5 text-sm">
+        <li><a href="./index.html" class="hover:text-play-400">Beranda</a></li>
+        <li><a href="./vibe-grid.html" class="text-play-400">The Vibe Grid</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-6 py-8">
+    <h1 class="mb-1 text-3xl font-bold">The Vibe Grid</h1>
+    <p class="mb-6 text-flip-900/70">Cari anime berdasarkan judul atau pilih sesuai mood.</p>
+
+    <form id="search-form" class="mb-4">
+      <label for="search-input" class="mb-1 block text-sm font-medium">Cari judul</label>
+      <input id="search-input" type="text" placeholder="Contoh: Naruto"
+             class="w-full rounded-md border border-flip-100 bg-white px-3 py-2 focus:border-flip-600 focus:outline-none sm:max-w-md">
+    </form>
+
+    <p class="mb-2 text-sm font-medium">Pilih aura</p>
+    <div id="aura-buttons" class="mb-2 flex flex-wrap gap-2"></div>
+    <p id="aura-desc" class="mb-6 text-sm text-flip-900/70"></p>
+
+    <p id="result-count" class="mb-3 text-sm text-flip-900/70"></p>
+    <p id="loading-message" class="py-10 text-center"></p>
+    <p id="error-message" class="py-10 text-center text-red-600"></p>
+
+    <section id="anime-grid" class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"></section>
+  </main>
+
+  <footer class="mt-8 bg-flip-900 py-5 text-center text-sm text-flip-100">
+  </footer>
+
+  <script src="./vibe-grid.js"></script>
+</body>
+</html>
