@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 
 class MediaController extends Controller
 {
-    /**
-     * GET /api/media?search=judul&category=Anime
-     */
+
     public function index(Request $request)
     {
         $media = Media::query()
@@ -24,9 +22,6 @@ class MediaController extends Controller
         return MediaResource::collection($media);
     }
 
-    /**
-     * GET /api/media/{media}  -> detail media beserta pengguna yang memasukkannya ke koleksi
-     */
     public function show(Media $media)
     {
         $media->load('users')->loadCount('users');
@@ -34,9 +29,6 @@ class MediaController extends Controller
         return new MediaResource($media);
     }
 
-    /**
-     * POST /api/media
-     */
     public function store(StoreMediaRequest $request)
     {
         $media = Media::create($request->validated());
@@ -44,9 +36,6 @@ class MediaController extends Controller
         return (new MediaResource($media))->response()->setStatusCode(201);
     }
 
-    /**
-     * PATCH /api/media/{media}
-     */
     public function update(StoreMediaRequest $request, Media $media)
     {
         $media->update($request->validated());
@@ -54,9 +43,6 @@ class MediaController extends Controller
         return new MediaResource($media);
     }
 
-    /**
-     * DELETE /api/media/{media}
-     */
     public function destroy(Media $media)
     {
         $media->delete();

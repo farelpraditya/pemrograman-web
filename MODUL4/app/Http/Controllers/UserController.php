@@ -11,19 +11,14 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    /**
-     * GET /api/users
-     */
+
     public function index()
-    {
-        $users = User::withCount('media')->paginate(10);
+{
+    $users = User::with('media')->withCount('media')->paginate(10);
 
-        return UserResource::collection($users);
-    }
+    return UserResource::collection($users);
+}
 
-    /**
-     * GET /api/users/{user}  -> detail pengguna beserta koleksi medianya
-     */
     public function show(User $user)
     {
         $user->load('media')->loadCount('media');
@@ -31,9 +26,6 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    /**
-     * POST /api/users
-     */
     public function store(StoreUserRequest $request)
     {
         $user = User::create($request->validated());
@@ -41,24 +33,15 @@ class UserController extends Controller
         return (new UserResource($user))->response()->setStatusCode(201);
     }
 
-    // ================= CUSTOM ACTION (mengubah relasi / pivot) =================
-
-    /**
-     * GET /api/users/{user}/collection  -> daftar koleksi media milik pengguna
-     */
     public function collection(User $user)
     {
         return MediaResource::collection($user->media()->orderBy('title')->get());
     }
 
-    /**
-     * POST /api/users/{user}/collection  body: { "media_id": 1 }
-     */
     public function addToCollection(AddToCollectionRequest $request, User $user)
     {
         $mediaId = $request->validated()['media_id'];
 
-        // Cegah data duplikat -> 409 Conflict
         if ($user->media()->where('media.id', $mediaId)->exists()) {
             return response()->json(['message' => 'Media sudah ada di koleksi'], 409);
         }
@@ -71,9 +54,6 @@ class UserController extends Controller
         ], 201);
     }
 
-    /**
-     * DELETE /api/users/{user}/collection/{media}
-     */
     public function removeFromCollection(User $user, Media $media)
     {
         if (! $user->media()->where('media.id', $media->id)->exists()) {

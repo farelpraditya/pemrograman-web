@@ -15,7 +15,6 @@ class StoreMediaRequest extends FormRequest
 
     public function rules(): array
     {
-        // POST => semua field wajib, PATCH => hanya validasi field yang dikirim
         $required = $this->isMethod('PATCH') ? 'sometimes' : 'required';
 
         return [
@@ -23,7 +22,6 @@ class StoreMediaRequest extends FormRequest
                 $required,
                 'string',
                 'max:255',
-                // Saat PATCH, abaikan judul milik media yang sedang diubah
                 Rule::unique('media', 'title')->ignore($this->route('media')),
             ],
             'genre' => [$required, 'string', 'max:100'],
